@@ -7,33 +7,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <title>Message App</title>
-  <style>
-    /* button {
-      display: block;
-    } */
-  </style>
+  <title>Messaging Test App</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   </body>
 </head>
 
 <body>
-  <h1>Messaging Quick Start</h1>
-  <p>This sample demonstrates how to create a space (room) in Webex, add a user, and send messages to the space.</p>
 
-  <ul>
-    <li><button id="listrooms" onclick="listRooms()" title="listrooms" type="button">List rooms</button></li>
-    <li><button id="createroom" onclick="createRoom()" title="createroom" type="button">Create a new room</button><input type="text" id="roomName" placeholder="Room name"></input></li>
-    <li><button id="sendmessage" onclick="sendMessage()" title="sendmessage" type="button">Send message to new room</button></li>
-    <li><button id="adduser" onclick="addUser()" title="adduser" type="button">Add user to room</button></li>
-  </ul>
+  <div class="container">
+    <div class="row">
 
-  <div style="width: 50%;">
+      <h1>Messaging Quick Start</h1>
+      <p>This sample demonstrates how to create a space (room) in Webex, add a user, and send messages to the space.</p>
+  
+      <ul>
+        <li><button id="createroom" onclick="createRoom()" title="createroom" type="button">Create a new
+            room</button><input type="text" id="roomName" placeholder="Room name"></input></li>
+        <li><button id="sendmessage" onclick="sendMessage()" title="sendmessage" type="button">Send message to new
+            room</button></li>
+        <li><button id="adduser" onclick="addUser()" title="adduser" type="button">Add user to room</button></li>
+        <li><button id="listrooms" onclick="listRooms()" title="listrooms" type="button">List new rooms</button></li>
+        <li><button id="deleteroom" onclick="deleteRoom()" title="deleteroom" type="button">Delete new room</button></li>
+      </ul>
+  
+    </div>
+    <!-- Output div -->
+    <div class="row" style="width: 50%;">
+      <ul id="list-group" class="list-group">
+      </ul>
+    </div>
 
-    <ul id="list-group" class="list-group">
-
-    </ul>
 
   </div>
 
