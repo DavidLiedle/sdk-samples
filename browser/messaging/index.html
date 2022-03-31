@@ -21,19 +21,37 @@
       <h1>Messaging Quick Start</h1>
       <p>This sample demonstrates how to create a space (room) in Webex, add a user, and send messages to the space.</p>
   
-      <ul>
-        <li><button id="createroom" onclick="createRoom()" title="createroom" type="button">Create a new
-            room</button><input type="text" id="roomName" placeholder="Room name"></input></li>
-        <li><button id="sendmessage" onclick="sendMessage()" title="sendmessage" type="button">Send message to new
-            room</button></li>
-        <li><button id="adduser" onclick="addUser()" title="adduser" type="button">Add user to room</button></li>
-        <li><button id="listrooms" onclick="listRooms()" title="listrooms" type="button">List new rooms</button></li>
-        <li><button id="deleteroom" onclick="deleteRoom()" title="deleteroom" type="button">Delete new room</button></li>
-      </ul>
+      <div class="input-group mb-3">
+        <button class="btn btn-secondary btn-lg" id="createroom" onclick="createRoom()" title="createroom" type="button">Create a new room</button>
+        <input type="text" id="roomName" placeholder="Room name"></input>
+      </div>
+
+
+      <div class="input-group mb-3">
+        <button class="btn btn-secondary btn-lg" id="sendmessage" onclick="sendMessage()" title="sendmessage" type="button">Send message to new room</button>
+        <input type="text" id="message" placeholder="Hello!"></input>
+        <input type="text" id="roomid-message" placeholder="Room ID (copy from console)"></input>
+      </div>
+
+      <div class="input-group mb-3">
+        <button class="btn btn-secondary btn-lg" id="listrooms" onclick="listRooms()" title="listrooms" type="button">List  rooms (10 max)</button>
+      </div>
+
+      <div class="input-group mb-3">
+        <button class="btn btn-secondary btn-lg" id="deleteroom" onclick="deleteRoom()" title="deleteroom" type="button">Delete room</button>
+        <input type="text" id="roomid-delete" placeholder="Room ID"></input>
+      </div>
+
+      <div class="input-group mb-3">
+        <button class="btn btn-secondary btn-lg" id="adduser" onclick="addUser()" title="adduser" type="button">Add user to room</button>
+        <input type="text" id="userid" placeholder="User name/ID"></input>
+        <input type="text" id="roomid-adduser" placeholder="Room ID"></input>
+      </div>
   
     </div>
     <!-- Output div -->
-    <div class="row" style="width: 50%;">
+    <p>Console:</p>
+    <div class="row border">
       <ul id="list-group" class="list-group">
       </ul>
     </div>
