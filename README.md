@@ -33,5 +33,10 @@ Serving "/GitHub/sdk-samples" at http://127.0.0.1:8080
 Open the browser at the specified URL and navigate to the folder containing the desired sample app.
 
 ![](images/sample-app.png)
-### Browser 
+
+### Browser SDK Samples
+
+The current Browser SDK samples are available:
+
+* [Messaging](browser/messaging)
 
