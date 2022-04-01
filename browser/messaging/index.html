@@ -8,8 +8,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <title>Messaging Test App</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   </body>
 </head>
 
@@ -20,34 +18,39 @@
 
       <h1>Messaging Quick Start</h1>
       <p>This sample demonstrates how to create a space (room) in Webex, add a user, and send messages to the space.</p>
-  
+
       <div class="input-group mb-3">
-        <button class="btn btn-secondary btn-lg" id="createroom" onclick="createRoom()" title="createroom" type="button">Create a new room</button>
+        <button class="btn-secondary btn-lg" id="createroom" onclick="createRoom()" title="createroom"
+          type="button">Create a new room</button>
         <input type="text" id="roomName" placeholder="Room name"></input>
       </div>
 
 
       <div class="input-group mb-3">
-        <button class="btn btn-secondary btn-lg" id="sendmessage" onclick="sendMessage()" title="sendmessage" type="button">Send message to new room</button>
+        <button class="btn-secondary btn-lg" id="sendmessage" onclick="sendMessage()" title="sendmessage"
+          type="button">Send message to new room</button>
         <input type="text" id="message" placeholder="Hello!"></input>
-        <input type="text" id="roomid-message" placeholder="Room ID (copy from console)"></input>
+        <input width="500px" type="text" id="roomid-message" placeholder="Room ID (copy from console)"></input>
       </div>
 
       <div class="input-group mb-3">
-        <button class="btn btn-secondary btn-lg" id="listrooms" onclick="listRooms()" title="listrooms" type="button">List  rooms (10 max)</button>
+        <button class="btn-secondary btn-lg" id="listrooms" onclick="listRooms()" title="listrooms"
+          type="button">List rooms (10 max)</button>
       </div>
 
       <div class="input-group mb-3">
-        <button class="btn btn-secondary btn-lg" id="deleteroom" onclick="deleteRoom()" title="deleteroom" type="button">Delete room</button>
+        <button class="btn btn-secondary btn-lg" id="deleteroom" onclick="deleteRoom()" title="deleteroom"
+          type="button">Delete room</button>
         <input type="text" id="roomid-delete" placeholder="Room ID"></input>
       </div>
 
       <div class="input-group mb-3">
-        <button class="btn btn-secondary btn-lg" id="adduser" onclick="addUser()" title="adduser" type="button">Add user to room</button>
+        <button class="btn btn-secondary btn-lg" id="adduser" onclick="addUser()" title="adduser" type="button">Add user
+          to room</button>
         <input type="text" id="userid" placeholder="User name/ID"></input>
         <input type="text" id="roomid-adduser" placeholder="Room ID"></input>
       </div>
-  
+
     </div>
     <!-- Output div -->
     <p>Console:</p>

@@ -1,7 +1,8 @@
 // Get your personal access token at:
 // https://developer.webex.com/docs/getting-started#accounts-and-authentication
-var personal_access_token = "<your_access_token>"
+var personal_access_token = "NGFkOGE5OGEtNDZiMS00NGJiLWIzMDgtY2VmYjM4NDk3MzNhN2E2MGJmZTMtMmE3_P0A1_9c947ef3-ba2a-406e-9976-6a57f8f739b7"
 
+// Initialize Webex with access token
 const webex = window.webex = Webex.init({
   credentials: {
     access_token: personal_access_token,
@@ -9,13 +10,13 @@ const webex = window.webex = Webex.init({
 });
 
 webex.once(`ready`, function () {
-  var createdRooms;
   log("Webex ready")
 });
 
 listElement = document.getElementById("list-group");
 var newRooms = [];
 
+// Send message
 function sendMessage() {
   // send message to createdRoom room
   var messageText = document.getElementById("message").value;
@@ -27,12 +28,9 @@ function sendMessage() {
     }).then(function (message) {
       log("Message sent to room.")
     });
-  // }  
-  //  else {
-  //   log("Click 'Create room' and then send the message");
-  // }
 }
 
+// Create room
 function createRoom() {
   var roomName = document.getElementById("roomName").value;
   if (roomName == "") {
@@ -48,13 +46,9 @@ function createRoom() {
   }).catch(function(error){
     log(error)
   });
-
-  // if (createdRoom) {
-  //   log("New room (" + createRoom.title + ") already created. Click Delete Room to create a new room.")
-  //   return;
-  // }
 }
 
+// Delete room
 function deleteRoom() {
   var roomID = document.getElementById("roomid-delete").value;
 
@@ -70,6 +64,7 @@ function deleteRoom() {
   }
 }
 
+// List rooms
 function listRooms() {
   listElement = document.getElementById("list-group");
   listElement.innerHTML ="";
@@ -86,10 +81,11 @@ function listRooms() {
   });
 }
 
+// Add user to room
 function addUser() {
   var roomID = document.getElementById("roomid-adduser").value;
   webex.memberships.create({
-     personEmail: 'tim.statler@gmail.com',
+     personEmail: 'jofranc2@cisco.com',
      roomId: roomID
    }).then(function(membership) {
       log(membership.personEmail + " added to room");
@@ -98,29 +94,11 @@ function addUser() {
    });
 }
 
-
-
-// Log helper
+// Log helper function
 function log(data) {
   var listItem = document.createElement("li");
   // listItem.style.display = "block";
   listItem.classList.add("list-group-item");
   listItem.innerHTML = data;
   listElement.prepend(listItem);
-
 }
-
-
-
-// // index.js
-// const webex = window.Webex.init({
-//     credentials: {
-//       client_id: 'C92bf28bea6ba9209d552b6820981bc099d469483c4293f608595f91d8c15014b',
-//       redirect_uri,
-//       scope: 'spark:all'
-//     }
-//   // credentials: {
-//   //   access_token: `NzZmNmRmNWMtMmQ3Ni00Y2Q1LTljMDAtYWJlM2NlYmY3NzcwYjcyNWI4MWEtZjdk_P0A1_24d5456b-c672-4ced-a782-2192b5ca4d1f`,
-//   // },
-// });
-
