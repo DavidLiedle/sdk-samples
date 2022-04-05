@@ -1,6 +1,6 @@
 // Get your personal access token at:
 // https://developer.webex.com/docs/getting-started#accounts-and-authentication
-var personal_access_token = "N2UzZWQzY2ItMjc2ZC00MDcxLWEwYzgtZGRkY2UyMDFmMTM5NjJlYmU0YjctMTAx_P0A1_24d5456b-c672-4ced-a782-2192b5ca4d1f"
+var personal_access_token = "NTg5MjM5YmItZWFmNS00ZWIwLThjNmYtNDczMTMxY2U1MDA2ZTI1MDgwMGEtOGFk_P0A1_9c947ef3-ba2a-406e-9976-6a57f8f739b7"
 
 // Initialize Webex with access token
 const webex = window.webex = Webex.init({
@@ -119,6 +119,11 @@ function deleteRoom(roomID) {
     log("Enter the ID of the room to delete.")
   }
 }
+
+// listElement = document.getElementById("list-group");
+// listElement.innerHTML = "";
+
+
 
 // List rooms
 function listRooms() {
