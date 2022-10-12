@@ -1,170 +1,168 @@
-// Get your personal access token at:
-// https://developer.webex.com/docs/getting-started#accounts-and-authentication
-var personal_access_token = "NTg5MjM5YmItZWFmNS00ZWIwLThjNmYtNDczMTMxY2U1MDA2ZTI1MDgwMGEtOGFk_P0A1_9c947ef3-ba2a-406e-9976-6a57f8f739b7"
+// Get your personal access token:
+// https://developer.webex.com/docs/getting-started
 
-// Initialize Webex with access token
-const webex = window.webex = Webex.init({
+var personalAccessToken="<YOUR-PERSONAL-ACCESS-TOKEN>";
+
+const webex = (window.webex = window.Webex.init({
   credentials: {
-    access_token: personal_access_token,
-  },
-});
+    access_token: personalAccessToken
+  }
+}));
+
+// Text area for logging output
+var output = document.getElementById("output");
 
 webex.once(`ready`, function () {
-  log("Webex ready")
+  if (webex.canAuthorize) {
+    log("Authorization successful.");
+  }
 });
-
-listElement = document.getElementById("list-group");
-var newRooms = [];
-
-function populateList() {
-  if(window.jQuery) {    
-    $(roomToDelete).children().remove();
-    $.each(newRooms, function(index, room) {
-      $(roomToDelete).append("<option value='" + room.id + "'>" + room.title + "</option>");
-    });   
-
-  } else {
-    console.log("No jquery yet")
-  }
-}
-
-$( document ).ready(function() {
-  console.log( "ready!" );
-});
-
-
-function startListening() {
-  webex.messages.listen()
-    .then(() => {
-      webex.messages.on('created', (event) => log("New message from " + event.data.personEmail + ": " + event.data.text));
-      // webex.messages.on('deleted', (event) => log(`Got a message:deleted event: ${JSON.stringify(event)}`));
-      log("Listening for new messages...")
-    })
-    .catch((e) => console.error(`Unable to register for message events: ${e}`));
-  // Some app logic...
-  // WHen it is time to cleanup
-}
-
-function stopListening() {
-  webex.messages.stopListening();
-  webex.messages.off('created');
-  webex.messages.off('deleted');
-  log("Stopped listening for new messages.")
-
-}
-
-window.onbeforeunload = function () {
-  // WHen it is time to cleanup
-}
-
-// Send message
-function sendMessage() {
-  // send message to createdRoom room
-  var messageText = document.getElementById("message").value;
-  var roomID = document.getElementById("roomid-message").value;
-  // if (newRooms.length) {
-  webex.messages.create({
-    text: messageText,
-    roomId: roomID,
-  }).then(function (message) {
-    log("Message sent to room.")
-  });
-}
-
-// Create room
-function createRoom() {
-  var roomName = document.getElementById("roomName").value;
-  if (roomName == "") {
-    log("Enter a room name.")
-    return;
-  }
-  webex.rooms.create({ title: roomName }).then(function (room) {
-    newRooms.push({
-      id: room.id,
-      title: room.title
-    });
-    console.log(newRooms)
-    populateList();
-    log("<i>Created room</i>:" + room.title + " (ID: " + room.id + ")")
-  }).catch(function (error) {
-    log(error)
-  });
-}
-
-
-function deleteAllRooms(params) {
-  webex.rooms.list().then(function (rooms) {
-    for (var i = 0; i < rooms.items.length; i += 1) {
-        deleteRoom(rooms.items[i].id)
-    }
-  });
-}
-
-// Delete room
-function deleteRoom(roomID) {
-  
-  if (roomID) {
-    webex.rooms.remove(roomID).then(function (t) {
-      log("Room deleted")
-      $(roomToDelete).find('option[value=' + roomID +']').remove();
-      var rooms = newRooms.filter(function( obj ) {
-        return obj.field !== roomID;
-      });
-      newRooms = rooms;
-      log("newRooms: " + newRooms)
-    }).catch(function (error) {
-      log(error)
-    })
-  } else {
-    log("Enter the ID of the room to delete.")
-  }
-}
-
-// listElement = document.getElementById("list-group");
-// listElement.innerHTML = "";
-
 
 
 // List rooms
+
 function listRooms() {
-  listElement = document.getElementById("list-group");
-  listElement.innerHTML = "";
-  webex.rooms.list({ max: 10 }).then(function (rooms) {
-    if (rooms.items.length == 0) {
-      log("<i>There are no rooms. Click 'Create a new room'.</i>");
-    } else {
-      for (var i = 0; i < rooms.items.length; i += 1) {
-        log(rooms.items[i].title + " (ID: " + rooms.items[i].id + ")");
+  output.value = "";
+  webex.rooms
+    .list({ max: 10 })
+    .then(function (rooms) {
+      if (rooms.items.length == 0) {
+        log("There are no rooms to list. Click Create Room.");
+      } else {
+        for (var i = 0; i < rooms.items.length; i += 1) {
+          log(`${rooms.items[i].title} (${rooms.items[i].id})`);
+        }
       }
-    }
-  }).catch(function (error) {
-    log(error);
-  });
+    })
+    .catch(function (error) {
+      log(error);
+    });
 }
 
-// Add user to room
-function addUser() {
-  var roomID = document.getElementById("roomid-adduser").value;
-  webex.memberships.create({
-    personEmail: 'jofranc2@cisco.com',
-    roomId: roomID
-  }).then(function (membership) {
-    log(membership.personEmail + " added to room");
-  }).catch(function (error) {
-    log(error)
-  });
+// ID and name for last room created via API
+let newRoomName, newRoomId;
+
+function createRoom() {
+  // Prompt user for room name:
+  
+  newRoomName = prompt("Enter room name", "My Test Room");
+    webex.rooms
+      .create({ title: newRoomName })
+      .then(function (room) {
+        output.value = "";
+        newRoomId = room.id;
+        log(`Created room: ${room.title} with ID ${room.id}`);
+      })
+      .catch(function (error) {
+        output.value += error + "\n";
+      });
 }
 
-function clearConsole() {
-  listElement.innerHTML = "";
+// Send message to room
+
+function sendMessage() {
+  // Clear log
+  output.value = "";
+  
+  // Prompt user for message
+  let msgText = prompt("Enter message text", "Hi from the Webex JS SDK!");
+
+  // Use ID of last room created with Create Room
+  if (newRoomId) {
+    webex.messages
+      .create({
+        text: msgText,
+        roomId: newRoomId,
+      })
+      .then(function (message) {
+        log(`Message sent to ${newRoomName}`);
+      })
+      .catch(function (error) {
+        log(`Error sending message: ${error}`);
+      });
+  } else {
+    log("No room ID provided. Click Create Room, first.");
+  }
 }
 
 
-// Log helper function
+// Add a member to a room:
+
+function addMember() {
+  
+  // Prompt user for email of member
+  let email = prompt("Enter email of user to add", "user@example.com");
+
+  if (newRoomId) {
+    webex.memberships
+      .create({
+        personEmail: email,
+        roomId: newRoomId,
+      })
+      .then(function (membership) {
+        log(`${membership.personEmail} added to room`);
+      })
+      .catch(function (error) {
+        log(error);
+      });
+  } else {
+    log("No room ID. First, click Create Room.");
+  }
+}
+
+// Delete room by ID
+
+function deleteRoom() {
+  // Prompt user for room ID
+  let roomId = prompt("Enter ID of room to delete", newRoomId);
+
+  webex.rooms
+    .remove(roomId)
+    .then(function () {
+      output.value = "";
+      log("Room deleted");
+    })
+    .catch(function (error) {
+      log(" ");
+      log(`Error deleting room ${error}`);
+    });
+}
+
+
+// Start listening for new/delete messages events
+
+function startListening() {
+  webex.messages
+    .listen()
+    .then(() => {
+      webex.messages.on("created", (event) =>
+        log(`Got a message:created event: ${JSON.stringify(event)}`)
+      );
+      webex.messages.on("deleted", (event) =>
+        log(`Got a message:deleted event: ${JSON.stringify(event)}`)
+      );
+      output.value = "";
+      log("Listening for new/deleted messages...");
+    })
+    .catch((e) => console.error(`Unable to register for message events: ${e}`));
+}
+
+// Stop listening for events
+
+function stopListening() {
+  webex.messages.stopListening();
+  webex.messages.off("created");
+  webex.messages.off("deleted");
+  log("Stopped listening for new/deleted messages.");
+}
+
+
+// For doing OAuth-based flow
+// function startLogin() {
+//   webex.authorization.initiateLogin();
+// }
+
+// Log utility function
 function log(data) {
-  var listItem = document.createElement("li");
-  // listItem.style.display = "block";
-  listItem.classList.add("list-group-item");
-  listItem.innerHTML = data;
-  listElement.prepend(listItem);
+  output.value += data += "\n";
 }
