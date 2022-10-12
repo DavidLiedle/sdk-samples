@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+    <title>Message app example</title>
+  </head>
+  <body>
+    <div>
+      <button id="listrooms" onclick="listRooms()">List rooms</button>
+      <button id="createroom" onclick="createRoom()">Create room</button>
+      <button id="sendmessage" onclick="sendMessage()">Send message</button>
+      <button id="addmember" onclick="addMember()">Add member to room</button>
+      <button id="deleteroom" onclick="deleteRoom()">Delete room by ID</button>      
+      <button id="startlistening" onclick="startListening()" type="button">Start listening</button>
+      <button id="stoplistening" onclick="stopListening()" type="button">Stop listening</button>      
+      <button id="login" onclick="startLogin()" type="button">Start Login</button>            
+      <textarea
+        name="output"
+        id="output"
+        rows="20"
+      >
+      </textarea>
+    </div>
+
+    <!-- Load Webex SDK -->
+    <script
+      crossorigin
+      src="https://unpkg.com/webex@^1/umd/webex.min.js"
+    ></script>
+    <!-- Load app code     -->
+    <script src="./index.js"></script>
+  </body>
+</html>
